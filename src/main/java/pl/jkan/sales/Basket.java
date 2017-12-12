@@ -28,9 +28,11 @@ public class Basket {
     public List<BasketItem> getReservedProducts() {
         ArrayList<BasketItem> items = new ArrayList<>(productQuantities.size());
 
-        productQuantities.forEach((product, quantity) -> items.add(new BasketItem(product.getName(), quantity)));
+        productQuantities
+                .forEach((product, quantity) -> items.add(new BasketItem(product.getName(), quantity)))
+        ;
 
-        return Collections.unmodifiableList(items);
+        return items;
     }
 
     public boolean isEmpty() {

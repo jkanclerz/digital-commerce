@@ -3,6 +3,8 @@ package pl.jkan.sales;
 import org.junit.Test;
 import org.junit.Assert;
 
+import java.util.List;
+
 public class BasketTest {
 
     @Test
@@ -74,9 +76,16 @@ public class BasketTest {
 
         Assert.assertEquals(2, basket.productsCount());
         Assert.assertEquals(BasketItem.class, basket.getReservedProducts().get(0).getClass());
-        Assert.assertEquals(3, (int) basket.getReservedProducts().get(0).getQuantity());
-        Assert.assertEquals(1, (int) basket.getReservedProducts().get(1).getQuantity());
 
+        thereIsFollowingQuantityOfReservedProduct(3, product1, basket.getReservedProducts());
+        thereIsFollowingQuantityOfReservedProduct(1, product2, basket.getReservedProducts());
+    }
+
+    private void thereIsFollowingQuantityOfReservedProduct(Integer quantity, Product product, List<BasketItem> items) {
+        items.stream()
+                .filter(item -> item.getName().equals(product.getName()))
+                .forEach(item -> Assert.assertEquals(quantity, item.getQuantity()))
+        ;
     }
 
     @Test

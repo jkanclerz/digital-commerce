@@ -12,4 +12,8 @@ public class BasketItem {
     public Integer getQuantity() {
         return quantity;
     }
+
+    public String getName() {
+        return productName;
+    }
 }
