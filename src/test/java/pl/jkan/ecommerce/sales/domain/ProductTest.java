@@ -3,7 +3,7 @@ package pl.jkan.ecommerce.sales.domain;
 import org.junit.Assert;
 import org.junit.Test;
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.domain.Product;
+import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
 
 public class ProductTest {
 

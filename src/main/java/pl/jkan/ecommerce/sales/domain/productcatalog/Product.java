@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.domain;
+package pl.jkan.ecommerce.sales.domain.productcatalog;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 
@@ -22,5 +22,11 @@ public class Product {
 
     public Identifier getId() {
         return id;
+    }
+
+    public ProductData getProductData() {
+        return new ProductData(
+            this.id,
+        );
     }
 }

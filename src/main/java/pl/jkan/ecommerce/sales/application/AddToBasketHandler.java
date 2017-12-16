@@ -1,9 +1,9 @@
 package pl.jkan.ecommerce.sales.application;
 
-import pl.jkan.ecommerce.sales.domain.Basket;
-import pl.jkan.ecommerce.sales.domain.BasketStorage;
-import pl.jkan.ecommerce.sales.domain.Product;
-import pl.jkan.ecommerce.sales.domain.ProductCatalog;
+import pl.jkan.ecommerce.sales.domain.basket.Basket;
+import pl.jkan.ecommerce.sales.domain.basket.BasketStorage;
+import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
+import pl.jkan.ecommerce.sales.domain.productcatalog.ProductCatalog;
 import pl.jkan.ecommerce.system.SystemUserContext;
 
 public class AddToBasketHandler {

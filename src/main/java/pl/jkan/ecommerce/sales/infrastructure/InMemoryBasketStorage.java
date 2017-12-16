@@ -1,8 +1,8 @@
 package pl.jkan.ecommerce.sales.infrastructure;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.domain.Basket;
-import pl.jkan.ecommerce.sales.domain.BasketStorage;
+import pl.jkan.ecommerce.sales.domain.basket.Basket;
+import pl.jkan.ecommerce.sales.domain.basket.BasketStorage;
 
 import java.util.HashMap;
 

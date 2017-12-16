@@ -1,8 +1,8 @@
 package pl.jkan.ecommerce.sales.infrastructure;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.domain.Product;
-import pl.jkan.ecommerce.sales.domain.ProductCatalog;
+import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
+import pl.jkan.ecommerce.sales.domain.productcatalog.ProductCatalog;
 
 import java.util.ArrayList;
 import java.util.List;

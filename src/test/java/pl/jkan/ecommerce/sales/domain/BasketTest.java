@@ -3,10 +3,10 @@ package pl.jkan.ecommerce.sales.domain;
 import org.junit.Test;
 import org.junit.Assert;
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.domain.Basket;
-import pl.jkan.ecommerce.sales.domain.BasketItem;
-import pl.jkan.ecommerce.sales.domain.Product;
-import pl.jkan.ecommerce.sales.domain.ProductNotAvailableException;
+import pl.jkan.ecommerce.sales.domain.basket.Basket;
+import pl.jkan.ecommerce.sales.domain.basket.BasketItem;
+import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
+import pl.jkan.ecommerce.sales.domain.productcatalog.ProductNotAvailableException;
 
 import java.util.List;
 

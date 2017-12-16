@@ -2,67 +2,100 @@ package pl.jkan.ecommerce.sales.functional;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.domain.Basket;
-import pl.jkan.ecommerce.sales.domain.Product;
-import pl.jkan.ecommerce.sales.application.AddToBasketCommand;
-import pl.jkan.ecommerce.sales.application.AddToBasketHandler;
+import pl.jkan.ecommerce.sales.application.ConfirmOrderCommand;
+import pl.jkan.ecommerce.sales.application.ConfirmOrderHandler;
+import pl.jkan.ecommerce.sales.domain.basket.Basket;
+import pl.jkan.ecommerce.sales.domain.order.Order;
+import pl.jkan.ecommerce.sales.domain.order.OrderItem;
+import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
+import pl.jkan.ecommerce.sales.infrastructure.InMemoryOrderRepository;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryProductCatalog;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderingTest {
 
     private final InMemoryProductCatalog productCatalog;
-    private final AddToBasketHandler addToBasketHandler;
     private final InMemoryBasketStorage basketStorage;
+    private final ConfirmOrderHandler confirmOrderHandler;
+    private final InMemoryOrderRepository orderRepository;
     private InMemorySystemUserContext systemUserContext;
+
+    private Identifier orderId;
 
     public OrderingTest() {
         this.systemUserContext = new InMemorySystemUserContext();
         this.productCatalog = new InMemoryProductCatalog();
         this.basketStorage = new InMemoryBasketStorage();
-        this.addToBasketHandler = new AddToBasketHandler(
-            systemUserContext,
-            basketStorage,
-            productCatalog
+        this.orderRepository = new InMemoryOrderRepository();
+        this.confirmOrderHandler = new ConfirmOrderHandler(
+                this.orderRepository
         );
     }
 
     @Test
-    public void itAllowToSelectProduct() {
+    public void itAllowOrderSelectedProducts() {
         iAmGuestBuyerIdentifiedWith(new Identifier("customer_1"));
-        thereIsProductIdentifiedWith(new Identifier("p1"));
-        thereIsProductIdentifiedWith(new Identifier("p2"));
+        selectedProduct(new Identifier("p1"));
+        selectedProduct(new Identifier("p2"));
 
-        chooseProduct(new Identifier("p1"));
-        chooseProduct(new Identifier("p2"));
+        confirmReservation();
 
-        shoppingListForCustomerContainsProduct(new Identifier("customer_1"), new Identifier("p1"));
-        shoppingListForCustomerContainsProduct(new Identifier("customer_1"), new Identifier("p2"));
+        thereIsPendingOrderWithId(orderId);
+        orderContainsProduct(new Identifier("p1"));
+        orderContainsProduct(new Identifier("p2"));
+//        orderIsWaitingForPayment(orderId);
+//        thereIsPendingPayment(orderId, 20.00);
     }
 
-    private void shoppingListForCustomerContainsProduct(Identifier customer, Identifier product) {
-        Basket basket = this.basketStorage.loadForCustomer(customer);
+    private void thereIsPendingPayment(Identifier orderId, double money) {
 
-        Assert.assertFalse("Basket should contains products", basket.getReservedProducts().isEmpty());
+    }
 
-        basket.getReservedProducts()
-            .stream()
-            .filter(basketItem -> basketItem.getId().equals(product))
-            .forEach(basketItem -> Assert.assertTrue(basketItem.getId().equals(product)))
+    private void orderIsWaitingForPayment(Identifier orderId) {
+
+    }
+
+    private void orderContainsProduct(Identifier p) {
+        Order order = this.orderRepository.load(orderId);
+
+        thereIsFollowingProductInOrderedItems(p, order.getItems());
+    }
+
+    private void thereIsFollowingProductInOrderedItems(Identifier productId, Collection<OrderItem> items) {
+        List<OrderItem> ordered = items.stream()
+                .filter(item -> item.getProductId().equals(productId))
+                .collect(Collectors.toList())
         ;
+
+        Assert.assertFalse(ordered.isEmpty());
     }
 
-    private void chooseProduct(Identifier p1) {
-        addToBasketHandler.handle(new AddToBasketCommand(p1));
+    private void thereIsPendingOrderWithId(Identifier orderId) {
+
+        try {
+            Order order = this.orderRepository.load(orderId);
+            Assert.assertTrue(order.getId().equals(orderId));
+        } catch (RuntimeException e) {
+            Assert.fail("There is no such order");
+        }
     }
 
-    private void thereIsProductIdentifiedWith(Identifier p) {
-        productCatalog.add(new Product(p, 10));
+    private void confirmReservation() {
+        orderId = Identifier.generateUUID();
+        confirmOrderHandler.handle(new ConfirmOrderCommand(orderId));
     }
 
-    private void iAmGuestBuyerIdentifiedWith(Identifier id) {
-        systemUserContext.authenticate(id);
+    private void selectedProduct(Identifier p1) {
+        Basket basket = basketStorage.loadForCustomer(new Identifier("customer_1"));
+        basket.add(new Product(p1, 10));
+    }
+
+    private void iAmGuestBuyerIdentifiedWith(Identifier customer) {
+        systemUserContext.authenticate(customer);
     }
 }
