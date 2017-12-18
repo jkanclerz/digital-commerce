@@ -1,6 +1,6 @@
 ## e-commerce for digital product
 
-Reference project for ``Pracownia programowania 5 @ Cracow University of Economic``
+Reference project for ``Pracownia programowania 5 @ Cracow University of Economics``
 
 #### Compile your resources
 ```bash
