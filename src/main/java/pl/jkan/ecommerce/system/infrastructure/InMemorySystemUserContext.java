@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.functional;
+package pl.jkan.ecommerce.system.infrastructure;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.system.SystemUser;

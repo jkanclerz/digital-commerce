@@ -1,25 +1,22 @@
 package pl.jkan.ecommerce.sales.domain.offer;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.domain.productcatalog.ProductData;
 
 public class OfferItem {
-    private ProductData productData;
+    private Identifier productId;
     private Integer quantity;
     private Double totalCost;
+    private Discount discount;
 
-    public OfferItem(ProductData productData, Integer quantity, Double totalCost) {
-        this.productData = productData;
+    public OfferItem(Identifier productId, Integer quantity, Double totalCost) {
+        this.productId = productId;
         this.quantity = quantity;
         this.totalCost = totalCost;
+        this.discount = Discount.noDiscount();
     }
 
     public Identifier getProductId() {
-        return productData.getIdentifier();
-    }
-
-    public ProductData getProductData() {
-        return productData;
+        return productId;
     }
 
     public Integer getQuantity() {
@@ -27,6 +24,10 @@ public class OfferItem {
     }
 
     public Double getTotalCost() {
-        return totalCost;
+        return (totalCost - discount.getValue()) <= 0 ? 0.00 : (totalCost - discount.getValue());
+    }
+
+    public void apply(Discount discount) {
+        this.discount = discount;
     }
 }

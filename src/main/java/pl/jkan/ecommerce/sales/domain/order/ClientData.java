@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.domain;
+package pl.jkan.ecommerce.sales.domain.order;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 

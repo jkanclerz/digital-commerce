@@ -6,10 +6,19 @@ public class Product {
 
     private Identifier id;
     private final Integer stockQty;
+    private Double price;
+    private String name;
+
+    public Product(Identifier id, Integer stockQty, Double price) {
+        this.id = id;
+        this.stockQty = stockQty;
+        this.price = price;
+    }
 
     public Product(Identifier id, Integer stockQty) {
         this.id = id;
         this.stockQty = stockQty;
+        this.price = 0.0;
     }
 
     public Product(Identifier id) {
@@ -24,9 +33,7 @@ public class Product {
         return id;
     }
 
-    public ProductData getProductData() {
-        return new ProductData(
-            this.id,
-        );
+    public Double getPrice() {
+        return price;
     }
 }

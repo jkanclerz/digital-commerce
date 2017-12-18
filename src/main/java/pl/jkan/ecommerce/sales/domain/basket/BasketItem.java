@@ -5,10 +5,12 @@ import pl.jkan.ecommerce.canonicalmodel.Identifier;
 public class BasketItem {
     private Identifier id;
     private Integer quantity;
+    private Double price;
 
-    public BasketItem(Identifier id, Integer quantity) {
+    public BasketItem(Identifier id, Integer quantity, Double price) {
         this.id = id;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public Integer getQuantity() {
@@ -17,5 +19,9 @@ public class BasketItem {
 
     public Identifier getId() {
         return id;
+    }
+
+    public Double getPrice() {
+        return price;
     }
 }

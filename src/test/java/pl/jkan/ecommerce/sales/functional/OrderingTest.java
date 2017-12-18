@@ -6,12 +6,17 @@ import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.sales.application.ConfirmOrderCommand;
 import pl.jkan.ecommerce.sales.application.ConfirmOrderHandler;
 import pl.jkan.ecommerce.sales.domain.basket.Basket;
+import pl.jkan.ecommerce.sales.domain.offer.OfferMaker;
 import pl.jkan.ecommerce.sales.domain.order.Order;
+import pl.jkan.ecommerce.sales.domain.order.OrderFactory;
 import pl.jkan.ecommerce.sales.domain.order.OrderItem;
+import pl.jkan.ecommerce.sales.domain.payment.Payment;
 import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
+import pl.jkan.ecommerce.sales.infrastructure.InMemoryClientInformation;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryOrderRepository;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryProductCatalog;
+import pl.jkan.ecommerce.system.infrastructure.InMemorySystemUserContext;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +38,12 @@ public class OrderingTest {
         this.basketStorage = new InMemoryBasketStorage();
         this.orderRepository = new InMemoryOrderRepository();
         this.confirmOrderHandler = new ConfirmOrderHandler(
-                this.orderRepository
+                this.orderRepository,
+                new OfferMaker(),
+                this.basketStorage,
+                this.systemUserContext,
+                new OrderFactory(),
+                new InMemoryClientInformation()
         );
     }
 
@@ -48,16 +58,22 @@ public class OrderingTest {
         thereIsPendingOrderWithId(orderId);
         orderContainsProduct(new Identifier("p1"));
         orderContainsProduct(new Identifier("p2"));
-//        orderIsWaitingForPayment(orderId);
-//        thereIsPendingPayment(orderId, 20.00);
+        orderIsWaitingForPayment(orderId);
+        thereIsPendingPayment(orderId, 20.00);
     }
 
     private void thereIsPendingPayment(Identifier orderId, double money) {
+        Order order = this.orderRepository.load(orderId);
+        Payment payment = order.getPayment();
 
+        Assert.assertTrue(payment.isPending());
+        Assert.assertTrue("Payment should equal appropriate value", payment.getValue() == money);
     }
 
     private void orderIsWaitingForPayment(Identifier orderId) {
-
+        Order order = this.orderRepository.load(orderId);
+        Assert.assertFalse("Order should not be paid", order.isPaid());
+        Assert.assertNotNull(order.getPayment());
     }
 
     private void orderContainsProduct(Identifier p) {
@@ -92,7 +108,7 @@ public class OrderingTest {
 
     private void selectedProduct(Identifier p1) {
         Basket basket = basketStorage.loadForCustomer(new Identifier("customer_1"));
-        basket.add(new Product(p1, 10));
+        basket.add(new Product(p1, 10, 10.00));
     }
 
     private void iAmGuestBuyerIdentifiedWith(Identifier customer) {

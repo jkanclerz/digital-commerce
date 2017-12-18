@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.sales.domain.basket.BasketItem;
+import pl.jkan.ecommerce.sales.domain.offer.Offer;
+import pl.jkan.ecommerce.sales.domain.offer.OfferItem;
+import pl.jkan.ecommerce.sales.domain.order.ClientData;
 import pl.jkan.ecommerce.sales.domain.order.Order;
 import pl.jkan.ecommerce.sales.domain.order.OrderFactory;
 import pl.jkan.ecommerce.sales.domain.order.OrderMustContainsItemsException;
@@ -17,10 +20,10 @@ public class OrderFactoryTest {
     public void itVerifyIfThereAreItems() {
         OrderFactory orderFactory = new OrderFactory();
 
-        List<BasketItem> selectedItems = new ArrayList<>();
+        Offer offer = new Offer(new ArrayList<>());
 
         try {
-            Order order = orderFactory.create(new Identifier("order_1"), selectedItems, exampleClientData());
+            Order order = orderFactory.create(new Identifier("order_1"), offer, exampleClientData());
             Assert.fail("Not allow to create order without items");
         } catch (OrderMustContainsItemsException e) {
             Assert.assertTrue(true);
@@ -31,10 +34,10 @@ public class OrderFactoryTest {
     public void itCalculate() {
         OrderFactory orderFactory = new OrderFactory();
 
-        List<BasketItem> selectedItems = new ArrayList<>();
+        Offer offer = new Offer(new ArrayList<>());
 
         try {
-            Order order = orderFactory.create(new Identifier("order_1"), selectedItems, exampleClientData());
+            Order order = orderFactory.create(new Identifier("order_1"), offer, exampleClientData());
             Assert.fail("Not allow to create order without items");
         } catch (OrderMustContainsItemsException e) {
             Assert.assertTrue(true);
