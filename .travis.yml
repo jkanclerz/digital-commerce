@@ -1,4 +1,9 @@
 language: java
 
-mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-mvn test -B
+jdk:
+  - openjdk8
+script:
+  mvn verify
+  mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  mvn test -B  
+
