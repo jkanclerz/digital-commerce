@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.functional;
+package pl.jkan.ecommerce.functional;
 
 import org.junit.Assert;
 import org.junit.Test;

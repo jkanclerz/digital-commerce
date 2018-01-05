@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.domain;
+package pl.jkan.ecommerce.sales.domain.order;
 
 import org.junit.Assert;
 import org.junit.Test;
