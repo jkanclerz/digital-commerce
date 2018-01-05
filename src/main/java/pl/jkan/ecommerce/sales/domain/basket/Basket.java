@@ -1,4 +1,7 @@
-package pl.jkan.sales;
+package pl.jkan.ecommerce.sales.domain.basket;
+
+import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
+import pl.jkan.ecommerce.sales.domain.productcatalog.ProductNotAvailableException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,11 +31,9 @@ public class Basket {
     public List<BasketItem> getReservedProducts() {
         ArrayList<BasketItem> items = new ArrayList<>(productQuantities.size());
 
-        productQuantities
-                .forEach((product, quantity) -> items.add(new BasketItem(product.getName(), quantity)))
-        ;
+        productQuantities.forEach((product, quantity) -> items.add(new BasketItem(product.getId(), quantity, product.getPrice())));
 
-        return items;
+        return Collections.unmodifiableList(items);
     }
 
     public boolean isEmpty() {
