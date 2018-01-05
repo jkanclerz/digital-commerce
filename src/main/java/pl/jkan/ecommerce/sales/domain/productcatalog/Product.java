@@ -7,7 +7,6 @@ public class Product {
     private Identifier id;
     private final Integer stockQty;
     private Double price;
-    private String name;
 
     public Product(Identifier id, Integer stockQty, Double price) {
         this.id = id;
@@ -22,6 +21,7 @@ public class Product {
     }
 
     public Product(Identifier id) {
+        this.id = id;
         this.stockQty = 0;
     }
 
