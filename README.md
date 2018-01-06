@@ -2,18 +2,10 @@
 
 Reference project for ``Pracownia programowania 5 @ Cracow University of Economics``
 
-#### Compile your resources
-```bash
-mvn compile
-```
+### documentation
 
-#### Compile your tests
-
-```bash
-mvn test-compile
-```
-
-#### Make sure all is ok
-```bash
-mvn test
-```
+1. Development
+    1. [compilation](docs/compilation.md)
+2. Process
+    1. [payment](docs/payment.md) 
+          

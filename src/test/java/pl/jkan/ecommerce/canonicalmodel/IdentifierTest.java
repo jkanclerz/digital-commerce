@@ -13,4 +13,11 @@ public class IdentifierTest {
         Assert.assertFalse(i1.equals(i2));
         Assert.assertTrue(i2.equals(i3));
     }
+
+    @Test
+    public void itRepresentIdInToStringMethod() {
+        Identifier i1 = new Identifier("p1");
+
+        Assert.assertEquals("p1", i1.toString());
+    }
 }

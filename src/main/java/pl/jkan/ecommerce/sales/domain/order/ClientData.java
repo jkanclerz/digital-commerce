@@ -10,4 +10,12 @@ public class ClientData {
         this.id = id;
         this.email = email;
     }
+
+    public Identifier getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

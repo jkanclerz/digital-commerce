@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.application;
+package pl.jkan.ecommerce.sales.application.api;
 
 import pl.jkan.ecommerce.sales.domain.order.*;
 import pl.jkan.ecommerce.sales.domain.basket.Basket;

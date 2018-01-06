@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.application;
+package pl.jkan.ecommerce.sales.application.api;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 
