@@ -17,3 +17,10 @@ mvn test-compile
 ```bash
 mvn test
 ```
+
+#### Package and start application
+
+```bash
+mvn package
+java -jar target/digital-commerce-1.0-SNAPSHOT.jar
+```
