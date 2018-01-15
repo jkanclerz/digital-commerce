@@ -5,12 +5,14 @@ public class ProductDto {
     private String name;
     private String image;
     private Double price;
+    private String description;
 
-    public ProductDto(String id, String name, String image, Double price) {
+    public ProductDto(String id, String name, String image, Double price, String description) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.price = price;
+        this.description = description;
     }
 
     public String getId() {
@@ -43,5 +45,13 @@ public class ProductDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

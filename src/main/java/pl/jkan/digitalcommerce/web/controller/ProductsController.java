@@ -22,9 +22,9 @@ public class ProductsController {
     @ResponseBody
     public List<ProductDto> products() {
         List<ProductDto> productsList = new ArrayList<>();
-        productsList.add(new ProductDto("p1", "Cat 1", "images/cat1.jpeg", 10.00));
-        productsList.add(new ProductDto("p2", "Cat 2", "images/cat1.jpeg", 12.00));
-        productsList.add(new ProductDto("p3", "Cat 3", "images/cat1.jpeg", 13.00));
+        productsList.add(new ProductDto("p1", "Battlefield", "products/battlefield.png", 10.50, "No battle is ever the same"));
+        productsList.add(new ProductDto("p2", "Diablo III", "products/diablo.png", 12.50, "The demonically-besieged world of Sanctuary needs heroes"));
+        productsList.add(new ProductDto("p3", "Starcraft II", "products/starcraft.png", 13.50, "Wage war across the galaxy with three unique and powerful races"));
 
         return productsList;
     }

@@ -1,21 +1,37 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Digital Commerce</title>
-        <link href="css/main.css"/>
-    </head>
-    <body>
-        <header>
-            <h1>Some products in my list:</h1>
+<head>
+    <title>Digital commerce</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="container-fluid header">
+    <div class="container">
+        <header class="row">
+            <div class="brand col-sm-4"></div>
+            <div class="basket col-sm-8">
+                <div class="basket__info float-right">
+                    <span class="count">3</span>
+                    |
+                    <span class="subtotal">289.68 PLN</span>
+                </div>
+            </div>
         </header>
-        <main>
-            <ul class="products">
+    </div>
+</div>
+<main>
+    <div class="products">
+        <div class="owl-carousel products__list"></div>
+    </div>
+</main>
+<footer>
 
-            </ul>
-        </main>
-        <footer>
-            (c) 2018
-        </footer>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="js/products.js"></script>
-    </body>
+</footer>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/axios.min.js"></script>
+<script src="js/products.js"></script>
+</body>
 </html>
