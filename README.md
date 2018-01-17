@@ -5,9 +5,9 @@ Reference project for ``Pracownia programowania 5 @ Cracow University of Economi
 ### documentation
 
 1. Development
-    1. [compilation](docs/compilation.md)
+    1. [compilation](docs/10-compilation.md)
 2. Process
-    1. [payment](docs/payment.md) 
+    1. [payment](docs/40-payment.md) 
           
 
 ```bash
