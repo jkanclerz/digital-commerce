@@ -5,9 +5,10 @@ import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 import pl.jkan.digitalcommerce.web.model.ProductDto;
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.application.AddToBasketCommand;
-import pl.jkan.ecommerce.sales.application.AddToBasketHandler;
+import pl.jkan.ecommerce.sales.application.api.AddToBasketCommand;
+import pl.jkan.ecommerce.sales.application.api.AddToBasketHandler;
 import pl.jkan.ecommerce.sales.domain.productcatalog.ProductNotAvailableException;
+
 
 import java.util.ArrayList;
 import java.util.List;

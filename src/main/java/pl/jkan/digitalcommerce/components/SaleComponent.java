@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
-import pl.jkan.ecommerce.sales.application.AddToBasketHandler;
+import pl.jkan.ecommerce.sales.application.api.AddToBasketHandler;
 import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
 import pl.jkan.ecommerce.sales.domain.productcatalog.ProductCatalog;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
