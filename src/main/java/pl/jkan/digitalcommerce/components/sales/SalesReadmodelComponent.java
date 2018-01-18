@@ -3,16 +3,12 @@ package pl.jkan.digitalcommerce.components.sales;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.sales.domain.basket.BasketStorage;
 import pl.jkan.ecommerce.sales.domain.offer.OfferMaker;
 import pl.jkan.ecommerce.sales.domain.order.OrderRepository;
 import pl.jkan.ecommerce.sales.domain.payment.PaymentGateway;
-import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
-import pl.jkan.ecommerce.sales.domain.productcatalog.ProductCatalog;
-import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
-import pl.jkan.ecommerce.sales.infrastructure.InMemoryProductCatalog;
 import pl.jkan.ecommerce.sales.readmodel.offer.OfferFinder;
+import pl.jkan.ecommerce.sales.readmodel.productcatalog.InMemoryProductFinder;
 import pl.jkan.ecommerce.sales.readmodel.productcatalog.ProductFinder;
 import pl.jkan.ecommerce.sales.readmodel.readmodel.PaymentURLs;
 import pl.jkan.ecommerce.system.SystemUserContext;
@@ -45,7 +41,7 @@ public class SalesReadmodelComponent {
 
     @Bean
     ProductFinder productFinder() {
-        return new ProductFinder();
+        return new InMemoryProductFinder();
     }
 
     @Bean

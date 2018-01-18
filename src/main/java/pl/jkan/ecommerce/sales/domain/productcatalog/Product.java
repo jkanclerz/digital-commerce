@@ -36,4 +36,8 @@ public class Product {
     public Double getPrice() {
         return price;
     }
+
+    public Integer getStockQty() {
+        return stockQty;
+    }
 }

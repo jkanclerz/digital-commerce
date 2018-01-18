@@ -15,7 +15,7 @@ import pl.jkan.ecommerce.sales.domain.payment.Payment;
 import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryOrderRepository;
-import pl.jkan.ecommerce.sales.infrastructure.InMemoryProductCatalog;
+import pl.jkan.ecommerce.sales.infrastructure.productcatalog.InMemoryProductCatalog;
 import pl.jkan.ecommerce.system.infrastructure.InMemorySystemUserContext;
 
 import java.util.Collection;

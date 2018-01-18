@@ -9,7 +9,7 @@ import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
 import pl.jkan.ecommerce.sales.application.api.AddToBasketCommand;
 import pl.jkan.ecommerce.sales.application.api.AddToBasketHandler;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
-import pl.jkan.ecommerce.sales.infrastructure.InMemoryProductCatalog;
+import pl.jkan.ecommerce.sales.infrastructure.productcatalog.InMemoryProductCatalog;
 import pl.jkan.ecommerce.system.infrastructure.InMemorySystemUserContext;
 
 public class CollectProductsTest {

@@ -1,4 +1,4 @@
-package pl.jkan.ecommerce.sales.infrastructure;
+package pl.jkan.ecommerce.sales.infrastructure.productcatalog;
 
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.sales.domain.productcatalog.Product;

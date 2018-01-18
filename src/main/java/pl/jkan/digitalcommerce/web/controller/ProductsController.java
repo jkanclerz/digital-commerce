@@ -10,7 +10,6 @@ import pl.jkan.ecommerce.sales.domain.productcatalog.ProductNotAvailableExceptio
 import pl.jkan.ecommerce.sales.readmodel.productcatalog.ProductFinder;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
