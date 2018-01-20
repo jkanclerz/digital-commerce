@@ -12,7 +12,7 @@ public class NativeHttpClientTest {
     @Test
     public void itAllowSendGetRequest() throws IOException {
         HttpClient http = new NativeHttpClient();
-        Request r = Request.get("https://postman-echo.com/get?foo=bar", new HashMap<>());
+        Request r = Request.get("https://postman-echo.com/currentOffer?foo=bar", new HashMap<>());
 
         Response resp = http.send(r);
         Assert.assertEquals(resp.getStatus(), 200);

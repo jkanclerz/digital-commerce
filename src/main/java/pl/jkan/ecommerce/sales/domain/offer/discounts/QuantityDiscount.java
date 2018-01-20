@@ -17,7 +17,7 @@ public class QuantityDiscount implements DiscountPolicy {
     @Override
     public Discount calculateDiscount(OfferItem item) {
         if (item.getQuantity() >= itemCount) {
-            return new Discount("Item count", (item.getTotalCost() - (item.getTotalCost() * discountValue)));
+            return new Discount("Item count", (item.getTotalCost() * discountValue));
         }
 
         return Discount.noDiscount();

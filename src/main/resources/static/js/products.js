@@ -11,7 +11,7 @@ var ProductComponent = function(data) {
                         '<span>',
                             '__price__ PLN',
                         '</span>',
-                       '<a class="product__add-to-basket btn btn-primary btn-sm float-right" href="#" role="button">Add to basket</a>',
+                       '<a data-id="__id__" class="product__add-to-basket btn btn-primary btn-sm float-right" href="#" role="button">Add to basket</a>',
                    '</div>',
                '</div>',
                '<div class="col-sm-4 product__image">',
@@ -25,6 +25,7 @@ var ProductComponent = function(data) {
         render: function() {
             var tmp = template.join("");
             tmp = tmp.replace("__name__", data.name);
+            tmp = tmp.replace("__id__", data.id);
             tmp = tmp.replace("__image__", data.image);
             tmp = tmp.replace("__price__", data.price);
             tmp = tmp.replace("__description__", data.description);
@@ -44,6 +45,19 @@ var initializeCarousel = function() {
     });
 }
 
+var initializeAddProductToBasketHandler = function(productList) {
+    var handler = new AddProductHandler(axios);
+
+    Array.from(productList.getElementsByClassName("product__add-to-basket"))
+        .forEach(function(element){
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                handler.addProduct(this.getAttribute('data-id'));
+            })
+        })
+    ;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     var productList = document.getElementsByClassName("products__list")[0];
     axios.get("/products")
@@ -60,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
 
                 initializeCarousel();
+                initializeAddProductToBasketHandler(productList);
             ;
 
         })

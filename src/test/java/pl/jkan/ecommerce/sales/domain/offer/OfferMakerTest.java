@@ -36,9 +36,21 @@ public class OfferMakerTest {
         items.add(new BasketItem(new Identifier("p1"), 1, 10.00));
         items.add(new BasketItem(new Identifier("p2"), 3, 30.00));
 
-        Offer offer = offerMaker.calculateOffer(items, new QuantityDiscount(2, 0.30));
+        Offer offer = offerMaker.calculateOffer(items, new QuantityDiscount(3, 0.50));
 
-        Assert.assertTrue("Total should match expected value", offer.getTotal() == 37.00);
+        Assert.assertTrue("Total should match expected value", offer.getTotal() == 55.00);
+    }
+
+    @Test
+    public void itCalculateDiscountsWhenJustSingleProduct() {
+        OfferMaker offerMaker = new OfferMaker();
+
+        List<BasketItem> items = new ArrayList<>();
+        items.add(new BasketItem(new Identifier("p1"), 5, 10.00));
+
+        Offer offer = offerMaker.calculateOffer(items, new QuantityDiscount(5, 0.20));
+
+        Assert.assertTrue("Total should match expected value", offer.getTotal() == 40.00);
     }
 
     private void thereIsFollowingOrderedItemWithTotalCost(List<OfferItem> items, Identifier productId, Double totalPrice) {
