@@ -10,3 +10,4 @@ Reference project for ``Pracownia programowania 5 @ Cracow University of Economi
     1. [payment](docs/40-payment.md) 
 3. Deployment
     1. [payment](docs/60-deployment.md) 
+          
