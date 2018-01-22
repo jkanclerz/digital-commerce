@@ -1,5 +1,6 @@
 package pl.jkan.ecommerce.sales.application.api;
 
+import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.sales.domain.order.*;
 import pl.jkan.ecommerce.sales.domain.basket.Basket;
 import pl.jkan.ecommerce.sales.domain.basket.BasketStorage;
@@ -14,15 +15,13 @@ public class ConfirmOrderHandler {
     private BasketStorage basketStorage;
     private SystemUserContext systemUserContext;
     private OrderFactory orderFactory;
-    private ClientInformation clientInformation;
 
-    public ConfirmOrderHandler(OrderRepository orderRepository, OfferMaker offerMaker, BasketStorage basketStorage, SystemUserContext systemUserContext, OrderFactory orderFactory, ClientInformation clientInformation) {
+    public ConfirmOrderHandler(OrderRepository orderRepository, OfferMaker offerMaker, BasketStorage basketStorage, SystemUserContext systemUserContext, OrderFactory orderFactory) {
         this.orderRepository = orderRepository;
         this.offerMaker = offerMaker;
         this.basketStorage = basketStorage;
         this.systemUserContext = systemUserContext;
         this.orderFactory = orderFactory;
-        this.clientInformation = clientInformation;
     }
 
     public void handle(ConfirmOrderCommand command) {
@@ -31,12 +30,10 @@ public class ConfirmOrderHandler {
 
         Offer offer = offerMaker.calculateOffer(basket.getReservedProducts());
 
-        Order order = orderFactory.create(command.getOrderId(), offer, loadClientData());
+        Order order = orderFactory.create(command.getOrderId(), offer, new ClientData(Identifier.generateUUID(), command.getDeliveryEmail()));
 
         orderRepository.add(order);
-    }
 
-    private ClientData loadClientData() {
-        return clientInformation.getDataForClient(systemUserContext.getCurrentUser().getId());
+        basket.clear();
     }
 }

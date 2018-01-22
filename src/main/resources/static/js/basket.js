@@ -4,11 +4,7 @@ var BasketComponent = function(data) {
            '<span class="count">__items_count__ </span>',
            ' | ',
            '<span class="subtotal"> __total__ __currency__</span>',
-           '<div class="dropdown-menu">',
-               '<div class="dropdown-item">',
-                 '<a class="btn btn-sm btn-success" href="#">Checkout</a>',
-               '</div>',
-             '</div>',
+           '<a class="continue-to-checkout" href="#"><i class="fas fa-arrow-right"></i></a>',
        '</div>',
    ];
 
@@ -24,12 +20,24 @@ var BasketComponent = function(data) {
    }
 }
 
+var enableCheckout = function(checkoutElement) {
+    checkoutElement.addEventListener("click", function(){
+        checkout.initialize();
+    });
+}
+
 var loadBasketInformation = function(basketContainer) {
     axios.get('/offer')
         .then(function(response) {
             basketContainer.innerHTML = (new BasketComponent(response.data)).render();
+
+            var checkout = basketContainer.getElementsByClassName("continue-to-checkout")[0];
+
+            enableCheckout(checkout);
         })
     ;
+
+
 }
 
 var basketContainer = document.getElementsByClassName("basket")[0];
@@ -45,14 +53,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener('item_placed_in_basket', function(e) {
     loadBasketInformation(basketContainer);
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    console.log('dadassad');
-    $(document).on("hover", '.basket__info', function() {
-      console.log('adsdsadsa');
-      $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-    }, function() {
-      $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-    });
 });

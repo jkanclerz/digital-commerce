@@ -7,11 +7,10 @@ public class VerifyPaymentData {
 
     private String currency = "PLN";
 
-    public VerifyPaymentData(String sessionId, String orderId, Integer amount, String currency) {
+    public VerifyPaymentData(String sessionId, String orderId, Integer amount) {
         this.sessionId = sessionId;
         this.orderId = orderId;
         this.amount = amount;
-        this.currency = currency;
     }
 
     public String getSessionId() {

@@ -16,7 +16,9 @@ public class RequestRegistry {
         params.put("p24_email", "kanclerj@uek.krakow.pl");
         params.put("p24_country", "PL");
         params.put("p24_url_return", "");
+        params.put("p24_url_status", "");
         params.put("p24_sign", "f0f9253a5c2ed665aa37c415f9163f63");
+
 
         return params;
     }

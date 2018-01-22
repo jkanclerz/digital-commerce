@@ -5,17 +5,19 @@ public class RegisterPaymentData {
     private Integer amount;
     private String email;
     private String urlReturn;
+    private String statusUrl;
     private String description = "";
     private String currency = "PLN";
     private String country = "PL";
     private String apiVersion = "3.2";
 
-    public RegisterPaymentData(String sessionId, Integer amount, String email, String urlReturn, String description) {
+    public RegisterPaymentData(String sessionId, Integer amount, String email, String urlReturn, String description, String statusUrl) {
         this.sessionId = sessionId;
         this.amount = amount;
         this.email = email;
         this.urlReturn = urlReturn;
         this.description = description;
+        this.statusUrl = statusUrl;
     }
 
     public String getSessionId() {
@@ -48,5 +50,9 @@ public class RegisterPaymentData {
 
     public String getApiVersion() {
         return apiVersion;
+    }
+
+    public String getStatusUrl() {
+        return statusUrl;
     }
 }

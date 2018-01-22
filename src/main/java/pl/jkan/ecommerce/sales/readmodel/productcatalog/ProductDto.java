@@ -1,4 +1,4 @@
-package pl.jkan.digitalcommerce.web.model;
+package pl.jkan.ecommerce.sales.readmodel.productcatalog;
 
 public class ProductDto {
     private String id;

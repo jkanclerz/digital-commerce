@@ -14,12 +14,14 @@ public class Payment implements Entity {
     private Identifier id;
     private ClientData clientData;
     private Double amount;
+    private String token;
     private PaymentStatus status;
 
     public Payment(Identifier id, ClientData clientData, Double amount) {
         this.id = id;
         this.clientData = clientData;
         this.amount = amount;
+        this.token = token;
         this.status = PaymentStatus.PENDING;
     }
 
@@ -50,5 +52,22 @@ public class Payment implements Entity {
     @Override
     public Identifier getId() {
         return id;
+    }
+
+    public void register(PaymentGateway gateway) {
+        token = gateway.obtainPaymentToken(this);
+    }
+
+    public String getPaymentToken() {
+
+        if (token == null) {
+            throw new NotRegisterdException();
+        }
+
+        return token;
+    }
+
+    public void confirm() {
+        this.status = PaymentStatus.CONFIRMED;
     }
 }

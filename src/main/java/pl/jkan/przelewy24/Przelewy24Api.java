@@ -131,6 +131,7 @@ public class Przelewy24Api {
         params.put("p24_country", data.getCountry());
         params.put("p24_url_return", data.getUrlReturn());
         params.put("p24_api_version", data.getApiVersion());
+        params.put("p24_url_status", data.getStatusUrl());
         params.put("p24_sign", crc);
 
         return Request.post(

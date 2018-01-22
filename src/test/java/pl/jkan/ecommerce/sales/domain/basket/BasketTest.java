@@ -105,4 +105,15 @@ public class BasketTest {
             Assert.assertTrue(true);
         }
     }
+
+    @Test
+    public void itCanBeCleared() {
+        Product product1 = new Product(Identifier.byString("lego 9398"), 1);
+        Basket basket = new Basket();
+
+        basket.add(product1);
+        basket.clear();
+
+        Assert.assertTrue(basket.isEmpty());
+    }
 }

@@ -56,4 +56,7 @@ public class Basket {
         return productQuantities.containsKey(product);
     }
 
+    public void clear() {
+        this.productQuantities.clear();
+    }
 }

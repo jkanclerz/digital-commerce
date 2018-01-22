@@ -42,7 +42,7 @@ public class Przelewy24ApiTest {
                 httpClient
         );
 
-        api.registerPayment(new RegisterPaymentData("sesion_id", 12300, "kanclerj@uek.krakow.pl", "", ""));
+        api.registerPayment(new RegisterPaymentData("sesion_id", 12300, "kanclerj@uek.krakow.pl", "", "", ""));
         Request r = httpClient.lastRequest;
 
         Assert.assertEquals(RequestRegistry.expectedRegisterPaymentParams(), r.getParams());
@@ -67,7 +67,7 @@ public class Przelewy24ApiTest {
                 httpClient
         );
 
-        api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300, "PLN"));
+        api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300));
         Request r = httpClient.lastRequest;
 
         Assert.assertEquals("https://sandbox.przelewy24.pl/trnVerify", r.getUrl());
@@ -81,7 +81,7 @@ public class Przelewy24ApiTest {
                 new SpyHttp(new Response(200, new HashMap<>(), "error=0&token=ABC123"))
         );
 
-        ApiResponse response = api.registerPayment(new RegisterPaymentData("sesion_id", 12300, "kanclerj@uek.krakow.pl", "", ""));
+        ApiResponse response = api.registerPayment(new RegisterPaymentData("sesion_id", 12300, "kanclerj@uek.krakow.pl", "", "", ""));
 
         Assert.assertEquals("0", response.getValue("error"));
         Assert.assertEquals("ABC123", response.getValue("token"));
@@ -94,7 +94,7 @@ public class Przelewy24ApiTest {
                 new SpyHttp(new Response(200, new HashMap<>(), "error=0&token=ABC123"))
         );
 
-        ApiResponse response = api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300, "PLN"));
+        ApiResponse response = api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300));
 
         Assert.assertEquals("0", response.getValue("error"));
     }
@@ -107,7 +107,7 @@ public class Przelewy24ApiTest {
         );
 
         try {
-            ApiResponse response = api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300, "PLN"));
+            ApiResponse response = api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300));
             Assert.fail("Should throw exception");
         } catch (InvalidRequestException e) {
             Assert.assertTrue(true);
@@ -122,7 +122,7 @@ public class Przelewy24ApiTest {
         );
 
         try {
-            ApiResponse response = api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300, "PLN"));
+            ApiResponse response = api.verifyPayment(new VerifyPaymentData("sesion_id", "order_id", 12300));
             Assert.fail("Should throw exception");
         } catch (InvalidRequestException e) {
             Assert.assertTrue(true);

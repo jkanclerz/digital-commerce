@@ -10,6 +10,7 @@ import pl.jkan.ecommerce.sales.domain.offer.OfferMaker;
 import pl.jkan.ecommerce.sales.domain.order.Order;
 import pl.jkan.ecommerce.sales.domain.order.OrderFactory;
 import pl.jkan.ecommerce.sales.domain.order.OrderItem;
+import pl.jkan.ecommerce.sales.domain.payment.NullPaymentGateway;
 import pl.jkan.ecommerce.sales.domain.payment.Payment;
 import pl.jkan.ecommerce.sales.domain.productcatalog.Product;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
@@ -42,8 +43,7 @@ public class OrderingTest {
                 new OfferMaker(),
                 this.basketStorage,
                 this.systemUserContext,
-                new OrderFactory(),
-                new InMemoryClientInformation()
+                new OrderFactory(new NullPaymentGateway())
         );
     }
 
@@ -60,6 +60,12 @@ public class OrderingTest {
         orderContainsProduct(new Identifier("p2"));
         orderIsWaitingForPayment(orderId);
         thereIsPendingPayment(orderId, 20.00);
+        thereIsEmptyBasketAfterAll();
+    }
+
+    private void thereIsEmptyBasketAfterAll() {
+        Basket b = basketStorage.loadForCustomer(new Identifier("customer_1"));
+        Assert.assertTrue(b.isEmpty());
     }
 
     private void thereIsPendingPayment(Identifier orderId, double money) {
@@ -103,7 +109,7 @@ public class OrderingTest {
 
     private void confirmReservation() {
         orderId = Identifier.generateUUID();
-        confirmOrderHandler.handle(new ConfirmOrderCommand(orderId));
+        confirmOrderHandler.handle(new ConfirmOrderCommand(orderId, "delivery@email.dev"));
     }
 
     private void selectedProduct(Identifier p1) {

@@ -6,10 +6,11 @@ import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryRepository<Item extends Entity> {
 
-    List<Item> items;
+    protected  List<Item> items;
 
     public InMemoryRepository() {
         this.items = new ArrayList<>();

@@ -16,7 +16,7 @@ public class Przelewy24PaymentGatewayTest {
     @Ignore
     public void itAllowProceedPaymentProcess() {
         Payment p = thereIsExamplePayment();
-        Przelewy24PaymentGateway gateway = new Przelewy24PaymentGateway(przelewy24Api());
+        Przelewy24PaymentGateway gateway = new Przelewy24PaymentGateway(przelewy24Api(), "http://uek.krakow.pl", "http://uek.krakow.pl");
 
         String url = gateway.obtainPaymentURL(p);
 

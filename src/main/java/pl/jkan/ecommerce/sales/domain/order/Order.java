@@ -15,14 +15,12 @@ public class Order implements Entity {
     private List<OrderItem> items;
     private ClientData clientData;
     private Payment payment;
-    private Boolean paid;
 
     public Order(Identifier id, List<OrderItem> items, ClientData clientData, Payment payment) {
         this.id = id;
         this.items = items;
         this.clientData = clientData;
         this.payment = payment;
-        this.paid = false;
     }
 
     public Order(Identifier id, Offer offer) {
@@ -37,11 +35,15 @@ public class Order implements Entity {
         return (Collection<OrderItem>) Collections.unmodifiableCollection(items);
     }
 
-    public boolean isPaid() {
-        return paid;
+    public Boolean isPaid() {
+        return payment.isConfirmed();
     }
 
     public Payment getPayment() {
         return payment;
+    }
+
+    public void confirm() {
+        this.payment.confirm();
     }
 }

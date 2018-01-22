@@ -21,7 +21,38 @@ public class PaymentTest {
         Assert.assertTrue(12345 == p.expressValueInSmallestUnit());
     }
 
+    @Test
+    public void itAllowRegisterPaymentWithGatewat() {
+        Payment p = Payment.createPayment(exampleClientData(), 123.45);
+
+        p.register(new ExamplePaymentGateway());
+
+        Assert.assertEquals("payment_token", p.getPaymentToken());
+    }
+
     private ClientData exampleClientData() {
         return new ClientData(new Identifier("c_1"), "kanclerj@uek.krakow.pl");
     }
+
+    private PaymentGateway paymentGateway() {
+        return new ExamplePaymentGateway();
+    }
+
+    private class ExamplePaymentGateway implements PaymentGateway {
+        @Override
+        public String obtainPaymentURL(Payment payment) {
+            return null;
+        }
+
+        @Override
+        public String obtainPaymentToken(Payment payment) {
+            return "payment_token";
+        }
+
+        @Override
+        public String obtainPaymentURL(String token) {
+            return null;
+        }
+    }
 }
+

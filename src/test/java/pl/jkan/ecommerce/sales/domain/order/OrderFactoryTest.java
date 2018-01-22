@@ -10,6 +10,9 @@ import pl.jkan.ecommerce.sales.domain.order.ClientData;
 import pl.jkan.ecommerce.sales.domain.order.Order;
 import pl.jkan.ecommerce.sales.domain.order.OrderFactory;
 import pl.jkan.ecommerce.sales.domain.order.OrderMustContainsItemsException;
+import pl.jkan.ecommerce.sales.domain.payment.NullPaymentGateway;
+import pl.jkan.ecommerce.sales.domain.payment.Payment;
+import pl.jkan.ecommerce.sales.domain.payment.PaymentGateway;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ public class OrderFactoryTest {
 
     @Test
     public void itVerifyIfThereAreItems() {
-        OrderFactory orderFactory = new OrderFactory();
+        OrderFactory orderFactory = new OrderFactory(new NullPaymentGateway());
 
         Offer offer = new Offer(new ArrayList<>());
 
@@ -32,7 +35,7 @@ public class OrderFactoryTest {
 
     @Test
     public void itCalculate() {
-        OrderFactory orderFactory = new OrderFactory();
+        OrderFactory orderFactory = new OrderFactory(new NullPaymentGateway());
 
         Offer offer = new Offer(new ArrayList<>());
 
