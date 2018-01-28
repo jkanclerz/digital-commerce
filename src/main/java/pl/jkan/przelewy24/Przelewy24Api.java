@@ -3,13 +3,12 @@ package pl.jkan.przelewy24;
 import pl.jkan.przelewy24.Model.ApiResponse;
 import pl.jkan.przelewy24.Model.RegisterPaymentData;
 import pl.jkan.przelewy24.Model.VerifyPaymentData;
+import pl.jkan.przelewy24.hash.Md5;
 import pl.jkan.support.http.HttpClient;
 import pl.jkan.support.http.Request;
 import pl.jkan.support.http.Response;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -157,16 +156,7 @@ public class Przelewy24Api {
     }
 
     private String generateMd5(String input) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] messageDigest = md.digest(input.getBytes());
-        BigInteger number = new BigInteger(1, messageDigest);
-        String hashtext = number.toString(16);
-
-        while (hashtext.length() < 32) {
-            hashtext = "0" + hashtext;
-        }
-
-        return hashtext;
+        return Md5.encode(input);
     }
 
     private ApiResponse mapResponse(Response r) {
