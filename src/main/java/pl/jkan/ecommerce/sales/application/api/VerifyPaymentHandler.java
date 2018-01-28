@@ -5,16 +5,17 @@ import pl.jkan.ecommerce.canonicalmodel.events.OrderConfirmed;
 import pl.jkan.ecommerce.sales.application.services.payment.Przelewy24PaymentConfirmation;
 import pl.jkan.ecommerce.sales.domain.order.Order;
 import pl.jkan.ecommerce.sales.domain.order.OrderRepository;
+import pl.jkan.ecommerce.sales.domain.payment.PaymentConfirmation;
 import pl.jkan.ecommerce.system.EventBus;
 
 public class VerifyPaymentHandler {
 
-    private Przelewy24PaymentConfirmation paymentConfirmation;
+    private PaymentConfirmation paymentConfirmation;
     private OrderRepository orderRepository;
     private EventBus eventBus;
 
 
-    public VerifyPaymentHandler(Przelewy24PaymentConfirmation paymentConfirmation, OrderRepository orderRepository, EventBus eventBus) {
+    public VerifyPaymentHandler(PaymentConfirmation paymentConfirmation, OrderRepository orderRepository, EventBus eventBus) {
         this.paymentConfirmation = paymentConfirmation;
         this.orderRepository = orderRepository;
         this.eventBus = eventBus;
@@ -27,6 +28,6 @@ public class VerifyPaymentHandler {
 
         order.confirm();
 
-        eventBus.dispatch(new OrderConfirmed(Identifier.generateUUID()));
+        eventBus.dispatch(new OrderConfirmed(order.getId()));
     }
 }

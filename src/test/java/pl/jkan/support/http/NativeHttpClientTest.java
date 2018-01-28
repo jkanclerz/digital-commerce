@@ -29,6 +29,6 @@ public class NativeHttpClientTest {
 
         Response resp = http.send(r);
         Assert.assertEquals(resp.getStatus(), 200);
-        Assert.assertTrue("Contains valid content", resp.getBody().contains("\"foo\":\"bar\""));
+        Assert.assertTrue("Contains valid content", resp.getBody().contains("\"param_1\":\"value_1\""));
     }
 }
