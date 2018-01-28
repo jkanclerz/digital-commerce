@@ -1,40 +1,40 @@
-package pl.jkan.ecommerce;
+package pl.jkan.support.smtp;
 
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.*;
 
-public class EmailDelivaery {
+public class SmtpMailer implements Mailer {
+    private SmtpConfiguration configuration;
 
-    public void postMail(String recipient, String subject,
-                         String content , String from) throws MessagingException {
+    public SmtpMailer(SmtpConfiguration configuration) {
+        this.configuration = configuration;
+    }
 
-        final String username = "kanclerj@uek.krakow.pl";
-        final String password = "Kubusbubus1311";
+    public void send(String recipient, String subject,
+                     String content , String from) throws MailerException {
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "poczta.uek.krakow.pl");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.host", configuration.getServerAddress());
+        props.put("mail.smtp.port", configuration.getPort());
 
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                    return new PasswordAuthentication(configuration.getUser(), configuration.getPassword());
                     }
                 });
 
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("kanclerj@uek.krakow.pl"));
+            message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
-            message.setSubject("Testing Subject");
+            message.setSubject(subject);
             message.setText(content);
             Transport.send(message);
-
-            System.out.println("Done");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

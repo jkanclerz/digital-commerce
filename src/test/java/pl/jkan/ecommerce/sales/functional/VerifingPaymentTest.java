@@ -1,8 +1,7 @@
-package pl.jkan.ecommerce.functional;
+package pl.jkan.ecommerce.sales.functional;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.canonicalmodel.events.OrderConfirmed;

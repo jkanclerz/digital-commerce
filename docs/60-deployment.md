@@ -8,6 +8,11 @@ export P24_CRC=""
 export P24_RETURN_URL=""
 export P24_STATUS_URL="{your_url}/verify-payment"
 
+export ECOMMERCE_EMAIL_SERVER=""                                                                                                                  
+export ECOMMERCE_EMAIL_USER=""                                                                                                                  
+export ECOMMERCE_EMAIL_PASSWORD=""                                                                                                                      
+export ECOMMERCE_EMAIL_PORT="" 
+
 ```
 ```bash
 mvn package
