@@ -23,14 +23,13 @@ public class EmailDeliveryMechanismTest {
     @Test
     public void itDeliverTitledEmail() {
         Identifier oderId = Identifier.generateUUID();
-        DeliverySubject subject = new DeliverySubject(oderId, "", "Your order is here");
+        DeliverySubject subject = new DeliverySubject(oderId, "content", "Your order is here", "kanclerj@uek.krakow.pl");
 
         emailDeliverMechanism.handleDelivery(subject);
 
-        Assert.assertEquals(
-                "Your order is here",
-                mailer.lastSubject
-        );
+        Assert.assertEquals("Your order is here", mailer.lastSubject);
+        Assert.assertEquals("kanclerj@uek.krakow.pl", mailer.lastRecipient);
+        Assert.assertEquals("content", mailer.lastContent);
     }
 
     class SpyMailer implements Mailer {

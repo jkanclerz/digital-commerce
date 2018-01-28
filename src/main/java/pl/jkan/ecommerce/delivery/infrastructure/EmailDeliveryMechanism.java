@@ -7,17 +7,22 @@ import pl.jkan.support.smtp.MailerException;
 
 public class EmailDeliveryMechanism implements DeliveryMechanism {
     private Mailer mailer;
+    private String sender;
+
+    public EmailDeliveryMechanism(Mailer mailer, String sender) {
+        this.mailer = mailer;
+        this.sender = sender;
+    }
 
     public EmailDeliveryMechanism(Mailer mailer) {
         this.mailer = mailer;
+        this.sender = "no-reply@email.dev";
     }
 
     @Override
     public void handleDelivery(DeliverySubject deliverySubject) {
-        String subject = String.format("Your order %s is here", deliverySubject.getOrderId().toString());
-
         try {
-            mailer.send("kuba.kanclerz@gmail.com", subject, "", "");
+            mailer.send(deliverySubject.getRecipient(), deliverySubject.getSubject(), deliverySubject.getContent(), sender);
         } catch (MailerException e) {
         }
     }

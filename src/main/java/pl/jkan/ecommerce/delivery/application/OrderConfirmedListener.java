@@ -33,7 +33,8 @@ public class OrderConfirmedListener implements Subscriber<OrderConfirmed> {
         DeliverySubject deliverySubject = new DeliverySubject(
                 event.getOrderId(),
                 contentTemplate.renderContent(deliveryPackage),
-                contentTemplate.renderSubject(deliveryPackage)
+                contentTemplate.renderSubject(deliveryPackage),
+                specification.getEmail()
         );
 
         deliveryMechanism.handleDelivery(deliverySubject);
