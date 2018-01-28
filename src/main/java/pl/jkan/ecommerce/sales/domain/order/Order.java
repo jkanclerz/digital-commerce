@@ -46,4 +46,8 @@ public class Order implements Entity {
     public void confirm() {
         this.payment.confirm();
     }
+
+    public ClientData getClientData() {
+        return clientData;
+    }
 }

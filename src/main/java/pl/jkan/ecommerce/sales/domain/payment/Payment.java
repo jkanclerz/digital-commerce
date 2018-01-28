@@ -3,6 +3,7 @@ package pl.jkan.ecommerce.sales.domain.payment;
 import pl.jkan.ecommerce.canonicalmodel.Entity;
 import pl.jkan.ecommerce.canonicalmodel.Identifier;
 import pl.jkan.ecommerce.sales.domain.order.ClientData;
+import pl.jkan.ecommerce.sales.domain.payment.exception.NotRegisterdException;
 
 public class Payment implements Entity {
 
