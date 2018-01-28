@@ -20,5 +20,10 @@ mvn package
 java -jar target/digital-commerce-1.0-SNAPSHOT.jar
 
 #visit browser localhost:8080
+
+#when other port required 
+java -jar -Dserver.port=9999 target/digital-commerce-1.0-SNAPSHOT.jar
+
+#visit browser localhost:9999
 ```
 
