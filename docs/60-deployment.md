@@ -12,6 +12,7 @@ export ECOMMERCE_EMAIL_SERVER=""
 export ECOMMERCE_EMAIL_USER=""                                                                                                                  
 export ECOMMERCE_EMAIL_PASSWORD=""                                                                                                                      
 export ECOMMERCE_EMAIL_PORT="" 
+export ECOMMERCE_EMAIL_SENDER="sender@email"
 
 ```
 ```bash

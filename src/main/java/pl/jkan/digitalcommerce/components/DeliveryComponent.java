@@ -39,7 +39,8 @@ public class DeliveryComponent {
                                     System.getenv("ECOMMERCE_EMAIL_PASSWORD"),
                                     System.getenv("ECOMMERCE_EMAIL_PORT")
                             )
-                    )
+                    ),
+                    System.getenv("ECOMMERCE_EMAIL_SENDER")
                 ),
                 new OrderRepositoryOrderSpecification(orderRepository),
                 new DeliveryPreparation(
