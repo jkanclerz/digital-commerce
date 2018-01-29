@@ -24,13 +24,15 @@ public class VerifingPaymentTest {
     private InMemoryOrderRepository orderRepository;
     private SpyEventBus eventBus;
     private VerifyPaymentHandler verifyPaymentHandler;
+    private FakePaymentConfirmation paymentConfirmation;
 
     @Before
     public void setUp() {
         this.orderRepository = new InMemoryOrderRepository();
         this.eventBus = new SpyEventBus();
+        this.paymentConfirmation = new FakePaymentConfirmation(true);
         this.verifyPaymentHandler = new VerifyPaymentHandler(
-                new FakePaymentConfirmation(true),
+                this.paymentConfirmation,
                 orderRepository,
                 eventBus
         );
@@ -48,6 +50,21 @@ public class VerifingPaymentTest {
 
         OrderConfirmed e = (OrderConfirmed)eventBus.lastEvent;
         Assert.assertTrue(e.getOrderId().equals(orderId));
+    }
+
+    @Test
+    public void itFinishWithExceptionWhenCantConfirm() {
+        Identifier orderId = thereIsPendingOrderWithPayment("p_id");
+        this.paymentConfirmation.paymentCantBeConfirmed();
+
+        VerifyPaymentCommand c = new VerifyPaymentCommand("p_id", "p24_order_id", "checksum");
+
+        try {
+            this.verifyPaymentHandler.handle(c);
+            Assert.fail("Should throw exception");
+        } catch (RuntimeException e) {
+            Assert.assertNull(eventBus.lastEvent);
+        }
     }
 
     private Identifier thereIsPendingOrderWithPayment(String paymentId) {
@@ -73,6 +90,10 @@ public class VerifingPaymentTest {
 
         public FakePaymentConfirmation(Boolean valid) {
             this.valid = valid;
+        }
+
+        public void paymentCantBeConfirmed() {
+            this.valid = false;
         }
 
         @Override
