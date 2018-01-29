@@ -3,12 +3,13 @@ package pl.jkan.przelewy24;
 import pl.jkan.przelewy24.Model.ApiResponse;
 import pl.jkan.przelewy24.Model.RegisterPaymentData;
 import pl.jkan.przelewy24.Model.VerifyPaymentData;
-import pl.jkan.przelewy24.hash.Md5;
 import pl.jkan.support.http.HttpClient;
 import pl.jkan.support.http.Request;
 import pl.jkan.support.http.Response;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -94,6 +95,8 @@ public class Przelewy24Api {
         );
 
         Map<String, String> params = new HashMap<>();
+        params.put("p24_merchant_id", properties.getMerchantId());
+        params.put("p24_pos_id", properties.getPosId());
         params.put("p24_session_id", data.getSessionId());
         params.put("p24_order_id", data.getOrderId());
         params.put("p24_amount", data.getAmount().toString());
@@ -156,7 +159,16 @@ public class Przelewy24Api {
     }
 
     private String generateMd5(String input) throws NoSuchAlgorithmException {
-        return Md5.encode(input);
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] messageDigest = md.digest(input.getBytes());
+        BigInteger number = new BigInteger(1, messageDigest);
+        String hashtext = number.toString(16);
+
+        while (hashtext.length() < 32) {
+            hashtext = "0" + hashtext;
+        }
+
+        return hashtext;
     }
 
     private ApiResponse mapResponse(Response r) {

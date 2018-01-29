@@ -25,6 +25,8 @@ public class RequestRegistry {
 
     public static Map<String, String> expectedVerifyPaymentParams() {
         Map<String, String> params = new HashMap<>();
+        params.put("p24_merchant_id", "1234");
+        params.put("p24_pos_id", "5678");
         params.put("p24_session_id", "sesion_id");
         params.put("p24_order_id", "order_id");
         params.put("p24_amount", "12300");
