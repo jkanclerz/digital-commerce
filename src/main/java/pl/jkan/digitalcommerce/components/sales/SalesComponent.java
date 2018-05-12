@@ -80,9 +80,4 @@ public class SalesComponent {
                 new OrderFactory(paymentGateway)
         );
     }
-
-    @Bean
-    private OfferMaker getOfferMaker() {
-        return new OfferMaker();
-    }
 }
