@@ -10,6 +10,8 @@ import pl.jkan.ecommerce.sales.application.api.AddToBasketCommand;
 import pl.jkan.ecommerce.sales.application.api.AddToBasketHandler;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryBasketStorage;
 import pl.jkan.ecommerce.sales.infrastructure.InMemoryProductCatalog;
+import pl.jkan.ecommerce.system.EventBus;
+import pl.jkan.ecommerce.system.Subscriber;
 import pl.jkan.ecommerce.system.infrastructure.InMemorySystemUserContext;
 
 public class CollectProductsTest {
@@ -17,16 +19,19 @@ public class CollectProductsTest {
     private final InMemoryProductCatalog productCatalog;
     private final AddToBasketHandler addToBasketHandler;
     private final InMemoryBasketStorage basketStorage;
+    private final SpyEventBus eventBus;
     private InMemorySystemUserContext systemUserContext;
 
     public CollectProductsTest() {
         this.systemUserContext = new InMemorySystemUserContext();
         this.productCatalog = new InMemoryProductCatalog();
         this.basketStorage = new InMemoryBasketStorage();
+        this.eventBus = new SpyEventBus();
         this.addToBasketHandler = new AddToBasketHandler(
             systemUserContext,
             basketStorage,
-            productCatalog
+            productCatalog,
+            eventBus
         );
     }
 
@@ -65,5 +70,18 @@ public class CollectProductsTest {
 
     private void iAmGuestBuyerIdentifiedWith(Identifier id) {
         systemUserContext.authenticate(id);
+    }
+
+    class SpyEventBus implements EventBus {
+        public Object lastEvent;
+        @Override
+        public void dispatch(Object object) {
+            this.lastEvent = object;
+        }
+
+        @Override
+        public void addEventListener(Class className, Subscriber subscriber) {
+
+        }
     }
 }

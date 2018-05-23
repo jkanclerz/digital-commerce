@@ -66,7 +66,8 @@ public class SalesComponent {
         return new AddToBasketHandler(
             systemUserContext,
             basketStorage,
-            productCatalog
+            productCatalog,
+            eventBus
         );
     }
 

@@ -14,6 +14,9 @@ export ECOMMERCE_EMAIL_PASSWORD=""
 export ECOMMERCE_EMAIL_PORT="" 
 export ECOMMERCE_EMAIL_SENDER="sender@email"
 
+export METRIC_DB_ADDRESS="http://host:8086"
+export METRIC_DB_NAME=metrics
+
 ```
 ```bash
 mvn package
